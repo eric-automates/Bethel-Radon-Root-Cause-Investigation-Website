@@ -55,7 +55,6 @@ select, button { -webkit-appearance: none; -moz-appearance: none; appearance: no
     font-size: 0.9rem; width: 100%; max-width: 400px; cursor: pointer;
 }
 
-/* NEW: Style for the Prev/Next model cycle buttons */
 .cycle-btn {
     background-color: var(--bg-card) !important; color: var(--accent-blue) !important; 
     border: 1px solid var(--border-color) !important; padding: 6px 10px; border-radius: 4px; 
@@ -75,6 +74,27 @@ select, button { -webkit-appearance: none; -moz-appearance: none; appearance: no
 .chart-layout-wrapper { flex: 1; display: flex; flex-direction: row; gap: 10px; min-height: 0; width: 100%; }
 
 .nav-sidebar { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; flex-shrink: 0; }
+
+/* NEW: Dynamic Portrait Hint Styling */
+.portrait-hint {
+    display: none; /* Hidden by default on desktop and landscape */
+    color: var(--accent-blue);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    font-weight: 700;
+    opacity: 0.7;
+    margin: 10px 0;
+}
+
+/* Activate only on mobile devices explicitly held in portrait orientation */
+@media (max-width: 800px) and (orientation: portrait) {
+    .portrait-hint {
+        display: block;
+    }
+}
 
 .ratio-btn {
     background-color: var(--bg-card) !important; border: 1px solid var(--border-color) !important; 
