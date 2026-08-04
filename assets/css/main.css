@@ -75,18 +75,21 @@ select, button { -webkit-appearance: none; -moz-appearance: none; appearance: no
 
 .nav-sidebar { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; flex-shrink: 0; }
 
-/* NEW: Dynamic Portrait Hint Styling */
+/* NEW: Dynamic Portrait Hint Styling with Sideways Text */
 .portrait-hint {
     display: none; /* Hidden by default on desktop and landscape */
     color: var(--accent-blue);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     text-align: center;
-    letter-spacing: 0.5px;
-    line-height: 1.3;
+    letter-spacing: 1px;
     font-weight: 700;
     opacity: 0.7;
-    margin: 10px 0;
+    margin: 15px 0;
+    
+    /* The magic to turn the text sideways */
+    writing-mode: vertical-rl;
+    transform: rotate(180deg); /* Makes the text read bottom-to-top */
 }
 
 /* Activate only on mobile devices explicitly held in portrait orientation */
