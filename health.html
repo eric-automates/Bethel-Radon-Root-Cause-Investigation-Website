@@ -22,28 +22,28 @@
         <div class="workspace">
             <div class="content-pane">
                 <h2>Internal Application Diagnostics</h2>
-                <p>Real-time metrics evaluating DOM integrity, memory allocation, data buffer parsing status, and rendering engine latency.</p>
+                <p>Real-time metrics evaluating DOM integrity, memory allocation, time-slicing performance, and the data downsampling engine.</p>
                 
                 <div class="health-grid">
+                    <div class="health-card">
+                        <h3>Raw CSV Records Ingested</h3>
+                        <div class="val" id="recordCount">Loading...</div>
+                    </div>
+                    <div class="health-card">
+                        <h3>Active Time Range</h3>
+                        <div class="val" id="timeSliceInfo">Loading...</div>
+                    </div>
+                    <div class="health-card">
+                        <h3>Points Rendered (Downsampled)</h3>
+                        <div class="val" id="downsampleStatus">Loading...</div>
+                    </div>
                     <div class="health-card">
                         <h3>DOM Node Status</h3>
                         <div class="val" id="domStatus">Optimal</div>
                     </div>
                     <div class="health-card">
-                        <h3>CSV Data Records Parsed</h3>
-                        <div class="val" id="recordCount">Loading...</div>
-                    </div>
-                    <div class="health-card">
-                        <h3>Chart.js Engine Version</h3>
-                        <div class="val">v4.4.1 (Active)</div>
-                    </div>
-                    <div class="health-card">
                         <h3>Memory Footprint</h3>
                         <div class="val" id="memoryUsage">Calculated Live</div>
-                    </div>
-                    <div class="health-card">
-                        <h3>Viewport State</h3>
-                        <div class="val">Locked (No Scroll)</div>
                     </div>
                     <div class="health-card">
                         <h3>Core Controller Status</h3>
@@ -53,6 +53,8 @@
             </div>
         </div>
     </div>
+    <!-- Load app.js first so health.js can read the global data variables -->
+    <script src="assets/js/app.js"></script>
     <script src="assets/js/health.js"></script>
 </body>
 </html>
