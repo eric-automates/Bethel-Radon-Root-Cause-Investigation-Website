@@ -37,12 +37,13 @@ header {
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 10px;
     flex-shrink: 0;
+    flex-wrap: wrap; /* Helps header shrink gracefully */
 }
 
 .brand h1 { font-size: 1.25rem; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; }
 .brand span { font-size: 0.8rem; color: var(--text-muted); font-weight: normal; }
 
-nav { display: flex; gap: 8px; }
+nav { display: flex; gap: 8px; flex-wrap: wrap; }
 nav a {
     text-decoration: none; color: var(--text-main); background-color: var(--bg-secondary);
     padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; border: 1px solid var(--border-color);
@@ -54,16 +55,19 @@ nav a:hover, nav a.active { background-color: var(--accent-blue); color: #000; f
     flex: 1; display: flex; flex-direction: column; min-height: 0; gap: 10px;
 }
 
+/* FIX: Ensure dropdowns and controls don't flow off the screen */
 .controls-bar {
-    display: flex; gap: 20px; align-items: center; background-color: var(--bg-secondary);
-    padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); flex-shrink: 0; flex-wrap: wrap; justify-content: space-between;
+    display: flex; gap: 15px; align-items: center; background-color: var(--bg-secondary);
+    padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); flex-shrink: 0; 
+    flex-wrap: wrap; /* Allows stacking on smaller screens */
+    justify-content: center;
 }
 
-.control-group { display: flex; align-items: center; gap: 10px; }
+.control-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
 .control-group label { font-size: 0.9rem; color: var(--text-muted); }
 .control-group select {
     background-color: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color);
-    padding: 6px 10px; border-radius: 4px; font-size: 0.9rem; min-width: 250px;
+    padding: 6px 10px; border-radius: 4px; font-size: 0.9rem; width: 100%; max-width: 400px;
 }
 
 .time-controls button {
@@ -75,13 +79,40 @@ nav a:hover, nav a.active { background-color: var(--accent-blue); color: #000; f
 }
 
 .chart-layout-wrapper {
-    flex: 1; display: flex; flex-direction: row; gap: 10px; min-height: 0;
+    flex: 1; display: flex; flex-direction: row; gap: 10px; min-height: 0; width: 100%;
+}
+
+/* NEW: Sidebar layouts for arrows and aspect ratio buttons */
+.nav-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.ratio-btn {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: 600;
+}
+.ratio-btn:hover, .ratio-btn.active {
+    background-color: var(--accent-blue);
+    color: #000;
+    border-color: var(--accent-blue);
 }
 
 .nav-arrow {
     background-color: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--accent-blue);
-    border-radius: 8px; width: 45px; font-size: 1.2rem; cursor: pointer; transition: 0.2s;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    border-radius: 8px; width: 45px; height: 60px; font-size: 1.2rem; cursor: pointer; transition: 0.2s;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin: 5px 0;
 }
 .nav-arrow:hover { background-color: var(--bg-card); color: #fff; }
 .nav-arrow:active { background-color: var(--accent-blue); color: #000; }
@@ -90,6 +121,19 @@ nav a:hover, nav a.active { background-color: var(--accent-blue); color: #000; f
     flex: 1; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;
     padding: 10px; position: relative; display: flex; justify-content: center; align-items: center;
     min-height: 0; min-width: 0;
+}
+
+/* NEW: The canvas wrapper enforces dynamic aspect ratios */
+#canvasWrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: aspect-ratio 0.3s;
 }
 
 canvas { max-height: 100% !important; max-width: 100% !important; }
