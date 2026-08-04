@@ -45,6 +45,19 @@ function initGraphs() {
     switchGraph(0);
 }
 
+// NEW: Function to cycle through graphs via arrow buttons
+function cycleModel(direction) {
+    const select = document.getElementById('graphSelect');
+    let newIndex = parseInt(select.value) + direction;
+    
+    // Wrap around logic
+    if (newIndex < 0) newIndex = graphTitles.length - 1;
+    if (newIndex >= graphTitles.length) newIndex = 0;
+    
+    select.value = newIndex;
+    switchGraph(newIndex);
+}
+
 const getAvg = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
 const getCumul = arr => { let sum = 0; return arr.map(v => sum += v); };
 const getDelta = arr => arr.map((v, i) => i === 0 ? 0 : v - arr[i-1]);
@@ -52,13 +65,15 @@ const getDelta = arr => arr.map((v, i) => i === 0 ? 0 : v - arr[i-1]);
 function switchGraph(index) {
     const idx = parseInt(index);
     if (chartInstance) chartInstance.destroy();
-    
-    // Guard against empty data on initial load
     if (!globalData || !globalData.radon || globalData.radon.length === 0) return;
 
     const ctx = document.getElementById('investigationChart').getContext('2d');
     
-    // 1. Generate Base Data Objects
+    // Determine exact date range string for the canvas subtitle
+    const dateRangeStr = globalData.labels && globalData.labels.length > 0
+        ? `${globalData.labels[0]}  to  ${globalData.labels[globalData.labels.length - 1]}`
+        : 'No Data Available';
+
     const d_radon = { label: 'Radon (pCi/L)', data: [...globalData.radon], borderColor: '#ff7b72', backgroundColor: 'rgba(255,123,114,0.2)', yAxisID: 'yR', type: 'line', borderWidth: 2 };
     const d_inTemp = { label: 'Sensor Temp (°F)', data: [...globalData.sensorTemp], borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.2)', yAxisID: 'yT', type: 'line', borderWidth: 2 };
     const d_outTemp = { label: 'Outside Temp (°F)', data: [...globalData.outsideTemp], borderColor: '#ffa657', backgroundColor: 'rgba(255,166,87,0.2)', yAxisID: 'yT', type: 'line', borderWidth: 2 };
@@ -70,27 +85,34 @@ function switchGraph(index) {
 
     let chartType = 'line';
     let chartDatasets = [];
-    let chartOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#c9d1d9' } } } };
+    
+    // NEW: Base options block now includes the dynamic Subtitle Plugin
+    let chartOptions = { 
+        responsive: true, 
+        maintainAspectRatio: false, 
+        plugins: { 
+            legend: { labels: { color: '#c9d1d9' } },
+            subtitle: {
+                display: true,
+                text: `Time Range: ${dateRangeStr}`,
+                color: '#8b949e',
+                font: { size: 12, style: 'italic' },
+                padding: { bottom: 15 }
+            }
+        } 
+    };
 
-    // 2. ISOLATED ROUTING (Prevents Chart.js Axis Crashes)
     if (idx >= 20 && idx <= 24) {
-        // --- SCATTER CHARTS ---
         chartType = 'scatter';
         const targetData = idx === 20 ? globalData.sensorTemp : idx === 21 ? globalData.outsideTemp : idx === 22 ? globalData.outsidePressure : idx === 23 ? globalData.windSpeed : globalData.sensorHumidity;
         const labelName = idx === 20 ? 'Sensor Temp (°F)' : idx === 21 ? 'Outside Temp (°F)' : idx === 22 ? 'Pressure (inHg)' : idx === 23 ? 'Wind Speed (mph)' : 'Sensor Humidity (%)';
         
-        chartDatasets = [{
-            label: `Radon vs ${labelName}`,
-            data: targetData.map((v, i) => ({ x: v, y: globalData.radon[i] })),
-            backgroundColor: '#ff7b72', borderColor: '#ff7b72', pointRadius: 5
-        }];
+        chartDatasets = [{ label: `Radon vs ${labelName}`, data: targetData.map((v, i) => ({ x: v, y: globalData.radon[i] })), backgroundColor: '#ff7b72', borderColor: '#ff7b72', pointRadius: 5 }];
         chartOptions.scales = {
             x: { type: 'linear', title: { display: true, text: labelName, color: '#c9d1d9' }, grid: { color: '#30363d' }, ticks: { color: '#8b949e' } },
             y: { type: 'linear', title: { display: true, text: 'Radon (pCi/L)', color: '#ff7b72' }, grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
         };
-
     } else if (idx === 25 || idx === 26) {
-        // --- RADAR CHARTS ---
         chartType = 'radar';
         let rData1, rData2, lbl1, lbl2;
         if (idx === 25) {
@@ -114,22 +136,18 @@ function switchGraph(index) {
         chartOptions.scales = { r: { angleLines: { color: '#30363d' }, grid: { color: '#30363d' }, pointLabels: { color: '#c9d1d9' }, ticks: { display: false } } };
 
     } else if (idx === 27) {
-        // --- DOUGHNUT CHART ---
         chartType = 'doughnut';
         const highCount = globalData.radon.filter(r => r >= 4.0).length;
         const lowCount = globalData.radon.length - highCount;
         chartDatasets = [{ data: [highCount, lowCount], backgroundColor: ['#ff7b72', '#3fb950'], borderColor: '#161b22', borderWidth: 2 }];
-        chartOptions.scales = {}; // Force zero scales to prevent crashes
+        chartOptions.scales = {}; 
         
-        // Inject doughnut-specific properties directly into the config wrapper
         var doughnutConfig = {
             type: 'doughnut',
             data: { labels: ['Days ABOVE Action Level (4.0+)', 'Days BELOW Action Level'], datasets: chartDatasets },
-            options: chartOptions
+            options: chartOptions // Inherits the subtitle globally
         };
-
     } else {
-        // --- ALL LINE / BAR CHARTS (0-19, 28, 29) ---
         chartOptions.interaction = { mode: 'index', intersect: false };
         chartOptions.scales = {
             x: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } },
@@ -142,7 +160,6 @@ function switchGraph(index) {
 
         const showAxes = (arr) => arr.forEach(a => chartOptions.scales[a].display = true);
 
-        // Specific Line Graph Logic
         if (idx === 0) {
             chartDatasets = [d_radon, d_inTemp, d_outTemp, d_inHum, d_outPress, d_wind, d_rain, d_storm];
             d_wind.hidden = true; d_storm.hidden = true;
@@ -196,7 +213,6 @@ function switchGraph(index) {
         }
     }
 
-    // 3. Final Render Call
     const finalConfig = (idx === 27) ? doughnutConfig : {
         type: chartType,
         data: (idx >= 25 && idx <= 26) ? { labels: ['Radon', 'InTemp', 'InHum', 'Press', 'Wind'], datasets: chartDatasets } : { labels: globalData.labels, datasets: chartDatasets },
