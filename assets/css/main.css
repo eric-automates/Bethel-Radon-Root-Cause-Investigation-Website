@@ -84,14 +84,15 @@ select, button { -webkit-appearance: none; -moz-appearance: none; appearance: no
     letter-spacing: 1px;
     font-weight: 700;
     opacity: 0.7;
+    margin: 15px 0;
     
-    /* 1. Scrap writing-mode entirely */
-    /* 2. Rotate exactly 90 degrees counter-clockwise */
-    transform: rotate(-90deg); 
+    /* 1. Forces the browser to calculate the space vertically so it doesn't crush your buttons */
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
     
-    /* 3. The trickery to fix the invisible bounding box */
-    white-space: nowrap;
-    margin: 40px 0; 
+    /* 2. Flips the vertical text 180 degrees so the bottom of the letters face the left edge */
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 @media (max-width: 800px) and (orientation: portrait) {
