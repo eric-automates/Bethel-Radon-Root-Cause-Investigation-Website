@@ -89,7 +89,7 @@ select, button { -webkit-appearance: none; -moz-appearance: none; appearance: no
     
     /* The magic to turn the text sideways */
     writing-mode: vertical-rl;
-    transform: rotate(180deg); /* Makes the text read bottom-to-top */
+    transform: rotate(90deg); /* Makes the text read bottom-to-top */
 }
 
 /* Activate only on mobile devices explicitly held in portrait orientation */
