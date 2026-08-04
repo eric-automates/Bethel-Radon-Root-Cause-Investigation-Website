@@ -8,8 +8,8 @@
     <meta http-equiv="Expires" content="0">
     
     <title>Bethel Radon Root Cause Investigation</title>
-    <!-- Bumped to 1.2 to bust mobile cache -->
-    <link rel="stylesheet" href="assets/css/main.css?v=1.3">
+    <!-- Bumped to 1.4 -->
+    <link rel="stylesheet" href="assets/css/main.css?v=1.4">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -27,9 +27,12 @@
 
         <div class="workspace">
             <div class="controls-bar">
+                <!-- NEW: Previous and Next Model Cycle Buttons added here -->
                 <div class="control-group">
                     <label id="modelLabel" for="graphSelect">Analytical Model:</label>
+                    <button class="cycle-btn" onclick="cycleModel(-1)" title="Previous Model">&#9664;</button>
                     <select id="graphSelect" onchange="switchGraph(this.value)"></select>
+                    <button class="cycle-btn" onclick="cycleModel(1)" title="Next Model">&#9654;</button>
                 </div>
                 
                 <div class="control-group time-controls">
@@ -65,8 +68,8 @@
             </div>
         </div>
     </div>
-    <!-- Bumped to 1.2 to bust mobile cache -->
-    <script src="assets/js/app.js?v=1.2"></script>
-    <script src="assets/js/graphs.js?v=1.1"></script>
+    <!-- Bumped to 1.4 -->
+    <script src="assets/js/app.js?v=1.4"></script>
+    <script src="assets/js/graphs.js?v=1.4"></script>
 </body>
 </html>
