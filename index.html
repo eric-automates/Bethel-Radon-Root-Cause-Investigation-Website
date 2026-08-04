@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Cache-Busting Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <title>Bethel Radon Root Cause Investigation</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- Versioned CSS -->
+    <link rel="stylesheet" href="assets/css/main.css?v=1.1">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -37,7 +43,7 @@
             </div>
 
             <div class="chart-layout-wrapper">
-                <!-- Left Sidebar (Navigation + Ratios) -->
+                <!-- Left Sidebar -->
                 <div class="nav-sidebar">
                     <button class="ratio-btn" onclick="setRatio('16/9', this)" title="Widescreen Landscape">16:9 (L)</button>
                     <button class="nav-arrow left-arrow" onclick="stepTime(-1)" title="Previous Timeframe">&#9664;</button>
@@ -51,7 +57,7 @@
                     </div>
                 </div>
                 
-                <!-- Right Sidebar (Navigation + Ratios) -->
+                <!-- Right Sidebar -->
                 <div class="nav-sidebar">
                     <button class="ratio-btn" onclick="setRatio('3/4', this)" title="Standard Portrait">3:4 (P)</button>
                     <button class="nav-arrow right-arrow" onclick="stepTime(1)" title="Next Timeframe">&#9654;</button>
@@ -60,7 +66,8 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/graphs.js"></script>
+    <!-- Versioned JS -->
+    <script src="assets/js/app.js?v=1.1"></script>
+    <script src="assets/js/graphs.js?v=1.1"></script>
 </body>
 </html>
