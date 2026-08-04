@@ -2,12 +2,15 @@ let masterData = [];
 let globalData = {}; 
 let currentTimeRange = 'month'; // Default
 let currentTimeEnd = null; 
+let isAppInitialized = false;
 
 async function loadData() {
     try {
         const response = await fetch('data/data.csv');
         const text = await response.text();
-        const lines = text.trim().split('\n');
+        
+        // Strip Windows carriage returns to prevent silent parsing errors on GitHub Pages
+        const lines = text.replace(/\r/g, '').trim().split('\n');
 
         for (let i = 1; i < lines.length; i++) {
             const cols = lines[i].split(',');
@@ -34,6 +37,8 @@ async function loadData() {
         if (masterData.length > 0) {
             masterData.sort((a, b) => a.date - b.date); 
             currentTimeEnd = new Date(masterData[masterData.length - 1].date);
+            
+            // Build the data slice and trigger UI population
             updateDataSlice();
         }
     } catch (e) {
@@ -74,8 +79,16 @@ function updateDataSlice() {
         stormThreat: sliced.map(d => d.stormThreat)
     };
     
-    if (window.switchGraph && document.getElementById('graphSelect')) {
-        window.switchGraph(document.getElementById('graphSelect').value || 0);
+    // First run initialization logic vs. normal graph switching
+    if (!isAppInitialized) {
+        if (window.initGraphs) {
+            window.initGraphs(); // Populates the dropdown menu and draws graph 0
+            isAppInitialized = true;
+        }
+    } else {
+        if (window.switchGraph && document.getElementById('graphSelect')) {
+            window.switchGraph(document.getElementById('graphSelect').value || 0);
+        }
     }
 }
 
@@ -84,7 +97,7 @@ function setTimeRange(range) {
     document.querySelectorAll('.time-controls button').forEach(btn => btn.classList.remove('active'));
     document.querySelector(`.time-controls button[onclick*="${range}"]`).classList.add('active');
     
-    // Snap forward to the latest date
+    // Snap forward to the latest date when a new range is selected
     currentTimeEnd = new Date(masterData[masterData.length - 1].date);
     updateDataSlice();
 }
@@ -100,7 +113,7 @@ function stepTime(direction) {
     const offsetMs = msRange * direction;
     currentTimeEnd = new Date(currentTimeEnd.getTime() + offsetMs);
     
-    // Clamp to bounds
+    // Clamp to boundaries so the user cannot navigate past the available dataset
     const maxDate = masterData[masterData.length - 1].date.getTime();
     const minDate = masterData[0].date.getTime() + msRange;
     
