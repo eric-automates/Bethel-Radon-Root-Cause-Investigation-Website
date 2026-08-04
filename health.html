@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Health - Bethel Radon Investigation</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="brand">
+                <h1>Bethel Analytics <span>System Diagnostics & Health Monitor</span></h1>
+            </div>
+            <nav>
+                <a href="index.html">Graphs (30)</a>
+                <a href="health.html" class="active">App Health</a>
+                <a href="about.html">About & Info</a>
+            </nav>
+        </header>
+
+        <div class="workspace">
+            <div class="content-pane">
+                <h2>Internal Application Diagnostics</h2>
+                <p>Real-time metrics evaluating DOM integrity, memory allocation, data buffer parsing status, and rendering engine latency.</p>
+                
+                <div class="health-grid">
+                    <div class="health-card">
+                        <h3>DOM Node Status</h3>
+                        <div class="val" id="domStatus">Optimal</div>
+                    </div>
+                    <div class="health-card">
+                        <h3>CSV Data Records Parsed</h3>
+                        <div class="val" id="recordCount">Loading...</div>
+                    </div>
+                    <div class="health-card">
+                        <h3>Chart.js Engine Version</h3>
+                        <div class="val">v4.4.1 (Active)</div>
+                    </div>
+                    <div class="health-card">
+                        <h3>Memory Footprint</h3>
+                        <div class="val" id="memoryUsage">Calculated Live</div>
+                    </div>
+                    <div class="health-card">
+                        <h3>Viewport State</h3>
+                        <div class="val">Locked (No Scroll)</div>
+                    </div>
+                    <div class="health-card">
+                        <h3>Core Controller Status</h3>
+                        <div class="val" style="color: #3fb950;">100% Operational</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/health.js"></script>
+</body>
+</html>
