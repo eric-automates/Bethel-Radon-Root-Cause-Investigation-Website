@@ -22,11 +22,28 @@
 
         <div class="workspace">
             <div class="controls-bar">
-                <label for="graphSelect">Select Analytical Model (1 - 30):</label>
-                <select id="graphSelect" onchange="switchGraph(this.value)"></select>
+                <div class="control-group">
+                    <label for="graphSelect">Analytical Model:</label>
+                    <select id="graphSelect" onchange="switchGraph(this.value)"></select>
+                </div>
+                
+                <div class="control-group time-controls">
+                    <label>Set Time Range:</label>
+                    <button onclick="setTimeRange('hour')">1 Hour</button>
+                    <button onclick="setTimeRange('day')">1 Day</button>
+                    <button onclick="setTimeRange('week')" class="active">1 Week</button>
+                    <button onclick="setTimeRange('all')">All Time</button>
+                </div>
             </div>
-            <div class="chart-viewport">
-                <canvas id="investigationChart"></canvas>
+
+            <div class="chart-layout-wrapper">
+                <button class="nav-arrow left-arrow" onclick="stepTime(-1)" title="Previous Timeframe">&#9664;</button>
+                
+                <div class="chart-viewport">
+                    <canvas id="investigationChart"></canvas>
+                </div>
+                
+                <button class="nav-arrow right-arrow" onclick="stepTime(1)" title="Next Timeframe">&#9654;</button>
             </div>
         </div>
     </div>
