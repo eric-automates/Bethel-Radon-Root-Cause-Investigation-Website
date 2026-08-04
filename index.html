@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Cache-Busting Meta Tags -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
     <title>Bethel Radon Root Cause Investigation</title>
-    <!-- Versioned CSS -->
-    <link rel="stylesheet" href="assets/css/main.css?v=1.1">
+    <!-- Bumped to 1.2 to bust mobile cache -->
+    <link rel="stylesheet" href="assets/css/main.css?v=1.2">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -29,12 +28,12 @@
         <div class="workspace">
             <div class="controls-bar">
                 <div class="control-group">
-                    <label for="graphSelect">Analytical Model:</label>
+                    <label id="modelLabel" for="graphSelect">Analytical Model:</label>
                     <select id="graphSelect" onchange="switchGraph(this.value)"></select>
                 </div>
                 
                 <div class="control-group time-controls">
-                    <label>Set Time Range:</label>
+                    <label id="timeLabel">Set Time Range:</label>
                     <button onclick="setTimeRange('week')">1 Week</button>
                     <button onclick="setTimeRange('month')" class="active">1 Month</button>
                     <button onclick="setTimeRange('3months')">3 Months</button>
@@ -66,8 +65,8 @@
             </div>
         </div>
     </div>
-    <!-- Versioned JS -->
-    <script src="assets/js/app.js?v=1.1"></script>
+    <!-- Bumped to 1.2 to bust mobile cache -->
+    <script src="assets/js/app.js?v=1.2"></script>
     <script src="assets/js/graphs.js?v=1.1"></script>
 </body>
 </html>
