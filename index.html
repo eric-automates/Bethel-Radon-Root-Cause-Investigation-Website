@@ -37,13 +37,26 @@
             </div>
 
             <div class="chart-layout-wrapper">
-                <button class="nav-arrow left-arrow" onclick="stepTime(-1)" title="Previous Timeframe">&#9664;</button>
-                
-                <div class="chart-viewport">
-                    <canvas id="investigationChart"></canvas>
+                <!-- Left Sidebar (Navigation + Ratios) -->
+                <div class="nav-sidebar">
+                    <button class="ratio-btn" onclick="setRatio('16/9', this)" title="Widescreen Landscape">16:9 (L)</button>
+                    <button class="nav-arrow left-arrow" onclick="stepTime(-1)" title="Previous Timeframe">&#9664;</button>
+                    <button class="ratio-btn" onclick="setRatio('4/3', this)" title="Standard Landscape">4:3 (L)</button>
                 </div>
                 
-                <button class="nav-arrow right-arrow" onclick="stepTime(1)" title="Next Timeframe">&#9654;</button>
+                <!-- Central Graph Display -->
+                <div class="chart-viewport">
+                    <div id="canvasWrapper">
+                        <canvas id="investigationChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Right Sidebar (Navigation + Ratios) -->
+                <div class="nav-sidebar">
+                    <button class="ratio-btn" onclick="setRatio('3/4', this)" title="Standard Portrait">3:4 (P)</button>
+                    <button class="nav-arrow right-arrow" onclick="stepTime(1)" title="Next Timeframe">&#9654;</button>
+                    <button class="ratio-btn" onclick="setRatio('9/16', this)" title="Mobile Portrait">9:16 (P)</button>
+                </div>
             </div>
         </div>
     </div>
