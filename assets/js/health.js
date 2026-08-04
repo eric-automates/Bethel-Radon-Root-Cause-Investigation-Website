@@ -3,20 +3,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const domNodes = document.getElementsByTagName('*').length;
     document.getElementById('domStatus').textContent = `Healthy (${domNodes} nodes)`;
 
-    // Check Memory if supported
+    // Check Memory if supported by the browser
     if (performance && performance.memory) {
         const memMB = (performance.memory.usedJSHeapSize / 1024 / 1024).toFixed(2);
         document.getElementById('memoryUsage').textContent = `${memMB} MB`;
     } else {
-        document.getElementById('memoryUsage').textContent = 'Normal (Client Managed)';
+        document.getElementById('memoryUsage').textContent = 'Managed by Client';
     }
 
-    // Check parsed records from CSV fetch status
-    setTimeout(() => {
-        if (typeof globalData !== 'undefined' && globalData.radon) {
-            document.getElementById('recordCount').textContent = `${globalData.radon.length} Records Loaded`;
+    // Periodic check to read the live variables from the app.js engine
+    setInterval(() => {
+        if (typeof masterData !== 'undefined' && masterData.length > 0) {
+            document.getElementById('recordCount').textContent = `${masterData.length.toLocaleString()} Total`;
+            
+            if (typeof globalData !== 'undefined' && globalData.radon) {
+                const displayed = globalData.radon.length;
+                document.getElementById('downsampleStatus').textContent = `${displayed.toLocaleString()} Active`;
+            }
+            
+            if (typeof currentTimeRange !== 'undefined') {
+                document.getElementById('timeSliceInfo').textContent = currentTimeRange.toUpperCase();
+            }
         } else {
-            document.getElementById('recordCount').textContent = 'Loaded via CSV Parser';
+            document.getElementById('recordCount').textContent = 'Parsing CSV...';
         }
-    }, 500);
+    }, 1000);
 });
