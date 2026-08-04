@@ -37,7 +37,7 @@ header {
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 10px;
     flex-shrink: 0;
-    flex-wrap: wrap; /* Helps header shrink gracefully */
+    flex-wrap: wrap; 
 }
 
 .brand h1 { font-size: 1.25rem; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; }
@@ -55,11 +55,10 @@ nav a:hover, nav a.active { background-color: var(--accent-blue); color: #000; f
     flex: 1; display: flex; flex-direction: column; min-height: 0; gap: 10px;
 }
 
-/* FIX: Ensure dropdowns and controls don't flow off the screen */
 .controls-bar {
     display: flex; gap: 15px; align-items: center; background-color: var(--bg-secondary);
     padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); flex-shrink: 0; 
-    flex-wrap: wrap; /* Allows stacking on smaller screens */
+    flex-wrap: wrap; 
     justify-content: center;
 }
 
@@ -82,7 +81,6 @@ nav a:hover, nav a.active { background-color: var(--accent-blue); color: #000; f
     flex: 1; display: flex; flex-direction: row; gap: 10px; min-height: 0; width: 100%;
 }
 
-/* NEW: Sidebar layouts for arrows and aspect ratio buttons */
 .nav-sidebar {
     display: flex;
     flex-direction: column;
@@ -123,7 +121,6 @@ nav a:hover, nav a.active { background-color: var(--accent-blue); color: #000; f
     min-height: 0; min-width: 0;
 }
 
-/* NEW: The canvas wrapper enforces dynamic aspect ratios */
 #canvasWrapper {
     width: 100%;
     height: 100%;
