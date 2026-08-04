@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <title>App Health - Bethel Radon Investigation</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css?v=1.1">
 </head>
 <body>
     <div class="app-container">
@@ -22,7 +26,7 @@
         <div class="workspace">
             <div class="content-pane">
                 <h2>Internal Application Diagnostics</h2>
-                <p>Real-time metrics evaluating DOM integrity, memory allocation, time-slicing performance, and the data downsampling engine.</p>
+                <p>Real-time metrics evaluating DOM integrity, memory allocation, time-slicing performance, and the data parsing engine.</p>
                 
                 <div class="health-grid">
                     <div class="health-card">
@@ -34,7 +38,7 @@
                         <div class="val" id="timeSliceInfo">Loading...</div>
                     </div>
                     <div class="health-card">
-                        <h3>Points Rendered (Downsampled)</h3>
+                        <h3>Points Rendered (Active)</h3>
                         <div class="val" id="downsampleStatus">Loading...</div>
                     </div>
                     <div class="health-card">
@@ -53,8 +57,37 @@
             </div>
         </div>
     </div>
-    <!-- Load app.js first so health.js can read the global data variables -->
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/health.js"></script>
+    
+    <script src="assets/js/app.js?v=1.1"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const domNodes = document.getElementsByTagName('*').length;
+            document.getElementById('domStatus').textContent = `Healthy (${domNodes} nodes)`;
+
+            if (performance && performance.memory) {
+                const memMB = (performance.memory.usedJSHeapSize / 1024 / 1024).toFixed(2);
+                document.getElementById('memoryUsage').textContent = `${memMB} MB`;
+            } else {
+                document.getElementById('memoryUsage').textContent = 'Managed by Client';
+            }
+
+            setInterval(() => {
+                if (typeof masterData !== 'undefined' && masterData.length > 0) {
+                    document.getElementById('recordCount').textContent = `${masterData.length.toLocaleString()} Total`;
+                    
+                    if (typeof globalData !== 'undefined' && globalData.radon) {
+                        const displayed = globalData.radon.length;
+                        document.getElementById('downsampleStatus').textContent = `${displayed.toLocaleString()} Active`;
+                    }
+                    
+                    if (typeof currentTimeRange !== 'undefined') {
+                        document.getElementById('timeSliceInfo').textContent = currentTimeRange.toUpperCase();
+                    }
+                } else {
+                    document.getElementById('recordCount').textContent = 'Parsing CSV...';
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
