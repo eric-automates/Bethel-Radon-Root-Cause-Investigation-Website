@@ -46,12 +46,11 @@ function initGraphs() {
 }
 
 function switchGraph(index) {
-    idx = parseInt(index);
+    const idx = parseInt(index);
     if (chartInstance) chartInstance.destroy();
 
     const ctx = document.getElementById('investigationChart').getContext('2d');
     
-    // Base Datasets (All metrics available in every graph via toggleable legends)
     let datasets = [
         { label: 'Radon (pCi/L)', data: globalData.radon, borderColor: '#ff7b72', backgroundColor: 'rgba(255,123,114,0.2)', yAxisID: 'yR', type: 'line', hidden: false },
         { label: 'Sensor Temp (°F)', data: globalData.sensorTemp, borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.2)', yAxisID: 'yT', type: 'line', hidden: false },
@@ -79,8 +78,7 @@ function switchGraph(index) {
         }
     };
 
-    // Specific graph type modifications across the 30 variations
-    if (idx === 1) { // Stack effect delta
+    if (idx === 1) { 
         const delta = globalData.outsideTemp.map((ot, i) => ot - globalData.sensorTemp[i]);
         datasets[1].hidden = true; datasets[2].hidden = true;
         datasets.push({ label: 'Stack Effect Delta (Out - In)', data: delta, borderColor: '#ff7b72', yAxisID: 'yT', type: 'line' });
