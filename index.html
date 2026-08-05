@@ -8,8 +8,7 @@
     <meta http-equiv="Expires" content="0">
     
     <title>Bethel Radon Root Cause Investigation</title>
-    <!-- Version 2.0 triggers a hard cache reset -->
-    <link rel="stylesheet" href="assets/css/main.css?v=2.0">
+    <link rel="stylesheet" href="assets/css/main.css?v=2.1">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="dark-theme">
@@ -24,12 +23,12 @@
                 <a href="index.html" class="active">Dashboard</a>
                 <a href="health.html">System Health</a>
                 <a href="about.html">About & Info</a>
+                <button class="icon-btn focus-btn" onclick="toggleCompactMode()" title="Toggle Focus Mode">🔍</button>
             </nav>
         </header>
 
         <!-- Grouped Control Toolbar -->
         <div class="app-toolbar">
-            <!-- Model Selection Group -->
             <div class="toolbar-section">
                 <span class="toolbar-label">Analytical Model</span>
                 <div class="control-group">
@@ -39,7 +38,6 @@
                 </div>
             </div>
             
-            <!-- Time Navigation Group -->
             <div class="toolbar-section">
                 <span class="toolbar-label">Time Range Selection</span>
                 <div class="control-group">
@@ -55,18 +53,19 @@
             </div>
         </div>
 
+        <!-- Unobtrusive Portrait Hint -->
+        <div class="portrait-banner">&#10227; Rotate device to landscape for optimal analytical reporting.</div>
+
         <!-- 100% Fluid Chart Area -->
         <main class="app-main">
             <div class="chart-container">
-                <div class="portrait-overlay">Rotate device for optimal widescreen viewing &#10227;</div>
                 <canvas id="investigationChart"></canvas>
             </div>
         </main>
         
     </div>
 
-    <!-- Version 2.0 Scripts -->
-    <script src="assets/js/app.js?v=2.0"></script>
-    <script src="assets/js/graphs.js?v=2.0"></script>
+    <script src="assets/js/app.js?v=2.1"></script>
+    <script src="assets/js/graphs.js?v=2.1"></script>
 </body>
 </html>
