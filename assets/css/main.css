@@ -1,9 +1,9 @@
 :root {
     color-scheme: dark; 
-    --bg-base: #0f172a;       /* Deep slate background */
-    --bg-panel: #1e293b;      /* Slightly lighter panel background */
-    --bg-control: #334155;    /* Button/Select background */
-    --accent: #38bdf8;        /* Vivid sky blue accent */
+    --bg-base: #0f172a;       
+    --bg-panel: #1e293b;      
+    --bg-control: #334155;    
+    --accent: #38bdf8;        
     --accent-hover: #0ea5e9;  
     --text-primary: #f8fafc;
     --text-muted: #94a3b8;
@@ -15,87 +15,42 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-    width: 100%; 
-    height: 100vh; 
-    overflow: hidden; /* Strict no-scroll enforcement */
-    background-color: var(--bg-base) !important; 
-    color: var(--text-primary);
+    width: 100%; height: 100vh; overflow: hidden; 
+    background-color: var(--bg-base) !important; color: var(--text-primary);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Master Layout */
 .app-layout {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 12px 16px;
-    max-width: 1600px;
-    margin: 0 auto;
-    gap: 12px;
+    display: flex; flex-direction: column; height: 100%; padding: 12px 16px;
+    max-width: 1600px; margin: 0 auto; gap: 12px; transition: padding 0.3s;
 }
 
-/* Header */
 .app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--bg-panel);
-    padding: 12px 20px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    flex-shrink: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    background-color: var(--bg-panel); padding: 12px 20px;
+    border-radius: var(--radius-md); border: 1px solid var(--border); flex-shrink: 0;
 }
 
 .brand h1 { font-size: 1.25rem; color: var(--accent); margin: 0; font-weight: 600; }
 .brand .subtitle { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; margin-left: 8px; }
 
-.app-nav { display: flex; gap: 8px; }
+.app-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .app-nav a {
-    text-decoration: none; color: var(--text-muted); 
-    padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500;
-    transition: all 0.2s ease;
+    text-decoration: none; color: var(--text-muted); padding: 6px 14px; 
+    border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease;
 }
-.app-nav a:hover, .app-nav a.active {
-    background-color: var(--bg-control); color: var(--text-primary);
-}
+.app-nav a:hover, .app-nav a.active { background-color: var(--bg-control); color: var(--text-primary); }
 
-/* Toolbar */
 .app-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--bg-panel);
-    padding: 12px 20px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    flex-shrink: 0;
-    flex-wrap: wrap;
-    gap: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    background-color: var(--bg-panel); padding: 12px 20px; border-radius: var(--radius-md);
+    border: 1px solid var(--border); flex-shrink: 0; flex-wrap: wrap; gap: 16px; transition: padding 0.3s;
 }
 
-.toolbar-section {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
-    min-width: 300px;
-}
+.toolbar-section { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 300px; }
+.toolbar-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; transition: 0.3s; }
+.control-group { display: flex; align-items: center; gap: 8px; }
 
-.toolbar-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-muted);
-    font-weight: 600;
-}
-
-.control-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Form Controls */
 select, button { -webkit-appearance: none; appearance: none; outline: none; font-family: inherit; }
 
 .icon-btn {
@@ -103,7 +58,7 @@ select, button { -webkit-appearance: none; appearance: none; outline: none; font
     border-radius: var(--radius-sm); width: 36px; height: 36px; display: flex;
     align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; transition: 0.2s;
 }
-.icon-btn:hover { background-color: var(--accent); color: #000; border-color: var(--accent); }
+.icon-btn:hover, .focus-btn:hover { background-color: var(--accent); color: #000; border-color: var(--accent); }
 
 .data-select {
     background-color: var(--bg-base); color: var(--text-primary); border: 1px solid var(--border);
@@ -112,80 +67,59 @@ select, button { -webkit-appearance: none; appearance: none; outline: none; font
 }
 
 .time-tabs {
-    display: flex;
-    background-color: var(--bg-base);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    padding: 2px;
+    display: flex; background-color: var(--bg-base); border-radius: var(--radius-sm);
+    border: 1px solid var(--border); padding: 2px;
 }
 .time-btn {
-    background: transparent; color: var(--text-muted); border: none;
-    padding: 6px 16px; font-size: 0.85rem; font-weight: 500; border-radius: 4px; cursor: pointer;
-    transition: 0.2s;
+    background: transparent; color: var(--text-muted); border: none; padding: 6px 16px; 
+    font-size: 0.85rem; font-weight: 500; border-radius: 4px; cursor: pointer; transition: 0.2s;
 }
 .time-btn:hover { color: var(--text-primary); }
 .time-btn.active { background-color: var(--bg-control); color: var(--text-primary); }
 
-/* Main Chart Stage */
 .app-main {
-    flex: 1;
-    background-color: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 16px;
-    min-height: 0; /* Crucial for flexbox children to shrink */
-    position: relative;
-    display: flex;
+    flex: 1; background-color: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: var(--radius-md); padding: 16px; min-height: 0; position: relative; display: flex;
 }
 
-.chart-container {
-    flex: 1;
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
+.chart-container { flex: 1; position: relative; width: 100%; height: 100%; }
 canvas { max-width: 100%; max-height: 100%; }
 
-/* Mobile Portrait Overlay Hint */
-.portrait-overlay {
-    display: none;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    z-index: 10;
-    pointer-events: none;
-    text-transform: uppercase;
+/* Unobtrusive Portrait Banner */
+.portrait-banner {
+    display: none; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3);
+    color: var(--accent); text-align: center; font-size: 0.75rem; padding: 6px; 
+    border-radius: var(--radius-sm); margin: -4px 0; font-weight: 500;
 }
 
-/* Mobile Responsive Adjustments */
+/* 
+   FOCUS MODE: 
+   Triggered via JS to shrink UI and maximize graph area. 
+*/
+body.compact-mode .app-header { display: none; }
+body.compact-mode .app-layout { padding: 4px; gap: 4px; }
+body.compact-mode .app-toolbar { padding: 6px 10px; }
+body.compact-mode .toolbar-label { display: none; }
+body.compact-mode .app-main { padding: 8px; border-radius: var(--radius-sm); }
+body.compact-mode .portrait-banner { display: none; }
+
+/* Mobile Responsive */
 @media (max-width: 850px) {
     .app-toolbar { flex-direction: column; align-items: stretch; padding: 10px; }
     .toolbar-section { min-width: 100%; }
     .control-group { justify-content: space-between; }
     .time-tabs { flex: 1; justify-content: space-between; }
-    .time-btn { flex: 1; padding: 6px 4px; }
-    
+    .time-btn { flex: 1; padding: 6px 4px; font-size: 0.75rem; }
     .app-header { flex-direction: column; gap: 10px; padding: 10px; }
     .brand .subtitle { display: none; }
     .app-nav { width: 100%; justify-content: space-between; }
 }
 
 @media (max-width: 850px) and (orientation: portrait) {
-    .portrait-overlay { display: block; }
+    .portrait-banner { display: block; }
 }
 
-/* Minimal styling for the about/health content panes */
-.content-pane { flex: 1; background-color: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; overflow-y: auto; }
+.content-pane { flex: 1; background-color: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; overflow-y: auto; display: block; }
 .content-pane h2 { color: var(--accent); margin-bottom: 16px; font-size: 1.25rem; }
 .content-pane p, .content-pane li { font-size: 0.95rem; line-height: 1.6; color: var(--text-primary); margin-bottom: 12px; }
 .health-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
