@@ -8,71 +8,65 @@
     <meta http-equiv="Expires" content="0">
     
     <title>Bethel Radon Root Cause Investigation</title>
-    <!-- Bumped to 1.5 -->
-    <link rel="stylesheet" href="assets/css/main.css?v=1.0">
+    <!-- Version 2.0 triggers a hard cache reset -->
+    <link rel="stylesheet" href="assets/css/main.css?v=2.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-    <div class="app-container">
-        <header>
+<body class="dark-theme">
+    <div class="app-layout">
+        
+        <!-- Standardized Header -->
+        <header class="app-header">
             <div class="brand">
-                <h1>Bethel Analytics <span>Radon Root Cause Investigation</span></h1>
+                <h1>Bethel Analytics <span class="subtitle">Root Cause Investigation</span></h1>
             </div>
-            <nav>
-                <a href="index.html" class="active">Graphs (30)</a>
-                <a href="health.html">App Health</a>
+            <nav class="app-nav">
+                <a href="index.html" class="active">Dashboard</a>
+                <a href="health.html">System Health</a>
                 <a href="about.html">About & Info</a>
             </nav>
         </header>
 
-        <div class="workspace">
-            <div class="controls-bar">
+        <!-- Grouped Control Toolbar -->
+        <div class="app-toolbar">
+            <!-- Model Selection Group -->
+            <div class="toolbar-section">
+                <span class="toolbar-label">Analytical Model</span>
                 <div class="control-group">
-                    <label id="modelLabel" for="graphSelect">Analytical Model:</label>
-                    <button class="cycle-btn" onclick="cycleModel(-1)" title="Previous Model">&#9664;</button>
-                    <select id="graphSelect" onchange="switchGraph(this.value)"></select>
-                    <button class="cycle-btn" onclick="cycleModel(1)" title="Next Model">&#9654;</button>
-                </div>
-                
-                <div class="control-group time-controls">
-                    <label id="timeLabel">Set Time Range:</label>
-                    <button onclick="setTimeRange('week')">1 Week</button>
-                    <button onclick="setTimeRange('month')" class="active">1 Month</button>
-                    <button onclick="setTimeRange('3months')">3 Months</button>
-                    <button onclick="setTimeRange('all')">All Time</button>
+                    <button class="icon-btn" onclick="cycleModel(-1)" title="Previous Model">&#8592;</button>
+                    <select id="graphSelect" class="data-select" onchange="switchGraph(this.value)"></select>
+                    <button class="icon-btn" onclick="cycleModel(1)" title="Next Model">&#8594;</button>
                 </div>
             </div>
-
-            <div class="chart-layout-wrapper">
-                <!-- Left Sidebar -->
-                <div class="nav-sidebar">
-                    <div class="portrait-hint">Turn<br>Phone</div>
-                    <button class="ratio-btn" onclick="setRatio('16/9', this)" title="Widescreen Landscape">16:9 (L)</button>
-                    <button class="nav-arrow left-arrow" onclick="stepTime(-1)" title="Previous Timeframe">&#9664;</button>
-                    <button class="ratio-btn" onclick="setRatio('4/3', this)" title="Standard Landscape">4:3 (L)</button>
-                    <div class="portrait-hint">Sideways</div>
-                </div>
-                
-                <!-- Central Graph Display -->
-                <div class="chart-viewport">
-                    <div id="canvasWrapper">
-                        <canvas id="investigationChart"></canvas>
+            
+            <!-- Time Navigation Group -->
+            <div class="toolbar-section">
+                <span class="toolbar-label">Time Range Selection</span>
+                <div class="control-group">
+                    <button class="icon-btn" onclick="stepTime(-1)" title="Step Back in Time">&#9664;</button>
+                    <div class="time-tabs">
+                        <button class="time-btn" onclick="setTimeRange('week')">1W</button>
+                        <button class="time-btn active" onclick="setTimeRange('month')">1M</button>
+                        <button class="time-btn" onclick="setTimeRange('3months')">3M</button>
+                        <button class="time-btn" onclick="setTimeRange('all')">ALL</button>
                     </div>
-                </div>
-                
-                <!-- Right Sidebar -->
-                <div class="nav-sidebar">
-                    <div class="portrait-hint">For<br>Better</div>
-                    <button class="ratio-btn" onclick="setRatio('3/4', this)" title="Standard Portrait">3:4 (P)</button>
-                    <button class="nav-arrow right-arrow" onclick="stepTime(1)" title="Next Timeframe">&#9654;</button>
-                    <button class="ratio-btn" onclick="setRatio('9/16', this)" title="Mobile Portrait">9:16 (P)</button>
-                    <div class="portrait-hint">Viewing<br>&#10227;</div>
+                    <button class="icon-btn" onclick="stepTime(1)" title="Step Forward in Time">&#9654;</button>
                 </div>
             </div>
         </div>
+
+        <!-- 100% Fluid Chart Area -->
+        <main class="app-main">
+            <div class="chart-container">
+                <div class="portrait-overlay">Rotate device for optimal widescreen viewing &#10227;</div>
+                <canvas id="investigationChart"></canvas>
+            </div>
+        </main>
+        
     </div>
-    <!-- Bumped to 1.5 -->
-    <script src="assets/js/app.js?v=1.5"></script>
-    <script src="assets/js/graphs.js?v=1.5"></script>
+
+    <!-- Version 2.0 Scripts -->
+    <script src="assets/js/app.js?v=2.0"></script>
+    <script src="assets/js/graphs.js?v=2.0"></script>
 </body>
 </html>
